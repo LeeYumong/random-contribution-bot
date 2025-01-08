@@ -1,0 +1,30 @@
+name: Random Contributions
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Runs at midnight UTC every day
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  contribute:
+    runs-on: ubuntu-latest  # Use the latest Ubuntu environment
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3  # Check out the repository code
+
+      - name: Set up Python
+        uses: actions/setup-python@v4  # Set up Python
+        with:
+          python-version: '3.x'  # You can specify the version you need
+
+      - name: Run contribution script
+        run: python scripts/contribution_bot.py  # Run the Python script
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.name "github-actions"
+          git config --local user.email "actions@github.com"
+          git add .
+          git commit -m "Random contribution from GitHub Actions"
+          git push
