@@ -25,6 +25,8 @@ jobs:
         run: |
           git config --local user.name "github-actions"
           git config --local user.email "actions@github.com"
+          git remote set-url origin https://${{ secrets.GH_TOKEN }}@github.com/LeeYumong/random-contribution-bot.git
           git add .
           git commit -m "Random contribution from GitHub Actions"
           git push
+
